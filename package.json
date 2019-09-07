@@ -1,0 +1,44 @@
+{
+  "name": "visualization",
+  "version": "1.0.0",
+  "description": "A visualization project",
+  "private": true,
+  "scripts": {
+    "webpack": "webpack",
+    "start": "webpack-dev-server --open",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BenChenBen/Visualization.git"
+  },
+  "author": "Tai-Hsun Chen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BenChenBen/Visualization/issues"
+  },
+  "homepage": "https://github.com/BenChenBen/Visualization#readme",
+  "dependencies": {
+    "@babel/polyfill": "^7.4.4",
+    "@babel/runtime": "^7.4.5",
+    "bootstrap": "^4.3.1",
+    "bootstrap-select": "^1.13.10",
+    "handsontable": "^7.1.0",
+    "highcharts": "^7.1.2",
+    "jquery": "^3.4.1",
+    "jquery-ui": "^1.12.1",
+    "popper.js": "^1.15.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/plugin-transform-runtime": "^7.4.4",
+    "@babel/preset-env": "^7.4.5",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.0.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.34.0",
+    "webpack-cli": "^3.3.4",
+    "webpack-dev-server": "^3.7.1"
+  }
+}

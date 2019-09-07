@@ -1,0 +1,186 @@
+<html lang="en">
+    <head>
+        <title>Visualization Prototype</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!-- Latest compiled and minified CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.css" rel="stylesheet">
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+    </head>
+    <body>
+        <div class="container" style="min-width:1200px;">
+
+            <div class="row flex-row flex-nowrap p-5">
+                <div class="card col-12 p-0" id="queryCard">
+                    <div class="card-header d-flex flex-row">
+                        <h5 class="card-title m-auto">Query</h5>
+                        <button type="button" class="btn btn-primary">></button>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group d-flex justify-content-center p-5">
+                            <label class="my-auto mr-2" for="queryUrl">Url:</label>
+                            <input class="w-50 form-control" id="queryUrl" list="datasets">
+                            <datalist id="datasets">
+                                <option value="data/demo.json">data/demo.json</option>
+                                <option value="data/demo2_ethiopia.json">data/demo2_ethiopia.json</option>
+                                <option value="data/visualization_pipeline_test.json">data/visualization_pipeline_test.json</option>
+                            </datalist>
+                            <button type="button" class="btn btn-primary ml-2" id="queryBtn">Submit</button>
+                        </div>
+                    </div>
+                </div>
+    
+                <div id="resultCard" class="card col-12 p-0" style="display: none">
+                    <div class="card-header d-flex flex-row">
+                        <button type="button" class="btn btn-primary"><</button>
+                        <h5 class="card-title m-auto">Result</h5>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-secondary active">
+                                <input type="radio" value="Both" name="pageOptions" autocomplete="off" checked> Both
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" value="Table" name="pageOptions" autocomplete="off"> Table
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" value="Chart" name="pageOptions" autocomplete="off"> Chart
+                            </label>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6" id="tableContainer">
+                                <div class="row">
+                                    <select class="selectpicker col-md-8 col-lg-8 col-xl-8" title="Dataset" id="tableSp" multiple></select>
+                                    <button type="button" class="btn btn-primary col-auto ml-auto" id="stBtn">Show</button>
+                                    <button type="button" class="btn btn-primary col-auto ml-auto" data-toggle="button" id="tableAdvBtn">Advanced</button>
+                                </div>
+                                <div class="row d-none" id="tableAdvRow">
+                                    <span class="font-weight-bold col-md-3 col-lg-3 col-xl-3 mt-2">Sorted By:</span>
+                                    <select class="selectpicker col-md-3 col-lg-3 col-xl-3" title="Sorted By" id="sortSp"></select>
+                                    <span class="font-weight-bold col-md-3 col-lg-3 col-xl-3 mt-2">Order:</span>
+                                    <select class="selectpicker col-md-3 col-lg-3 col-xl-3" title="Order" id="orderSp">
+                                        <option value="ac" selected>Ascending</option>
+                                        <option value="dc">Descending</option>
+                                    </select>
+        
+                                    <span class="font-weight-bold col-md-3 col-lg-3 col-xl-3 mt-2">Filtered By:</span>
+                                    <select class="selectpicker col-md-3 col-lg-3 col-xl-3" title="Filtered By" id="filterSp"></select>
+                                    <button type="button" class="btn btn-primary col-md-2 col-lg-2 col-xl-2 offset-md-1 offset-lg-1 offset-xl-1" id="exefBtn">Execute</button>
+                                    <button type="button" class="btn btn-primary col-md-2 col-lg-2 col-xl-2 offset-md-1 offset-lg-1 offset-xl-1" id="cfBtn">Clear</button>
+        
+        
+                                    <select class="selectpicker col-md-6 col-lg-6 col-xl-6" title="Greater Than" id="gtSp">
+                                        <option value="gt">Greater Than</option>
+                                        <option value="geq">Greater Than Or Equal To</option>
+                                    </select>
+                                    <input type="text" class="form-control col-md-3 col-lg-3 col-xl-3" id="gtInput">
+                                    
+        
+                                    <select class="selectpicker col-md-6 col-lg-6 col-xl-6" title="Less Than" id="ltSp">
+                                        <option value="lt">Less Than</option>
+                                        <option value="leq">Less Than Or Equal To</option>
+                                    </select>
+                                    <input type="text" class="form-control col-md-3 col-lg-3 col-xl-3" id="ltInput">
+                                    
+                                    
+                                    <div class="w-100"></div>
+                                    <span class="font-weight-bold col-md-3 col-lg-3 col-xl-3 mt-2">Search:</span>
+                                    <input type="text" class="form-control col-md-3 col-lg-3 col-xl-3" id="searchInput">
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-lg-12 col-xl-12" style="overflow-x: auto">
+                                        <div id="tableDiv"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+        
+                            <div class="col-6" id="chartContainer">
+                                <div class="row">
+                                    <span class="font-weight-bold col-md-2 col-lg-2 col-xl-2 mt-2">X-Axis</span>
+                                    <select class="selectpicker col-md-3 col-lg-3 col-xl-3" title="X-Axis" id="xAxisSp">
+                                    </select>
+                                    <span class="font-weight-bold col-md-2 col-lg-2 col-xl-2 mt-2">Y-Axis</span>
+                                    <select class="selectpicker col-md-3 col-lg-3 col-xl-3" title="Y-Axis" id="yAxisSp" multiple></select>
+                                    
+                                    
+                                </div>
+                                <div class="row d-none" id="chartAdvRow">
+                                    <span class="font-weight-bold col-md-2 col-lg-2 col-xl-2 mt-2">Stack</span>
+                                    <select class="selectpicker col-md-3 col-lg-3 col-xl-3" id="stackingSp">
+                                        <option value="default" selected>Default</option>
+                                        <option value="normal">Stacking</option>
+                                        <option value="percent">Percent</option>
+                                    </select>
+                                    <div class="col-auto mt-2">
+                                        <span class="font-weight-bold">Scaling:</span>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="scalingOptions" id="scalingRadio1" value="linear" checked>
+                                            <label class="form-check-label" for="scalingRadio1">Linear</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="scalingOptions" id="scalingRadio2" value="logarithmic">
+                                            <label class="form-check-label" for="scalingRadio2">Logarithmic</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="w-100"></div>
+                                        
+                                    <div class="col-auto">
+                                        <div class="row">
+                                            <div class="col-2 form-inline">
+                                                <div class="form-group form-check">
+                                                    <label class="form-check-label" for="splitCheck">Split:</label>
+                                                    <input type="checkbox" class="form-check-input" name="splitOptions" value="split" id="splitCheck">
+                                                </div>
+                                            </div>
+                                            <div class="col-5 mt-3">
+                                                <div class="form-group row">
+                                                    <label for="splitChartRow" class="col-auto col-form-label">Row:</label>
+                                                    <div class="col-5">
+                                                        <input type="text" class="form-control" id="splitRow">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-5 mt-3">
+                                                    <div class="form-group row">
+                                                        <label for="splitChartCol" class="col-auto col-form-label">Column:</label>
+                                                        <div class="col-5">
+                                                            <input type="text" class="form-control" id="splitCol">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <span class="font-weight-bold col-md-3 col-lg-3 col-xl-3 mt-2">Chart Type:</span>
+                                    <select class="selectpicker col-md-4 col-lg-4 col-xl-4" title="Chart Type" id="typeSp">
+                                        <option value="column">Column</option>
+                                        <option value="bar">Bar</option>
+                                        <option value="line">Line</option>
+                                        <option value="spline">Spline</option>
+                                    </select>
+                                    <button type="button" class="btn btn-primary col-auto ml-auto" id="gnrBtn">Generate</button>
+                                    <button type="button" class="btn btn-primary col-auto ml-auto" data-toggle="button" id="chartAdvBtn">Advanced</button>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-lg-12 col-xl-12" id="customizeChart"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="data"></div>
+        <script src="main.js"></script>
+    </body>
+</html>
