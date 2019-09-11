@@ -27,6 +27,7 @@
     "highcharts": "^7.1.2",
     "jquery": "^3.4.1",
     "jquery-ui": "^1.12.1",
+    "live-server": "^1.2.1",
     "popper.js": "^1.15.0"
   },
   "devDependencies": {
