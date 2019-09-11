@@ -3,7 +3,7 @@
         <title>Visualization Prototype</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
+<!--        <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' http://127.0.0.1:8081">-->
         <!-- Latest compiled and minified CSS -->
         <link href="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.css" rel="stylesheet">
 
@@ -25,13 +25,9 @@
                     <div class="card-body">
                         <div class="form-group d-flex justify-content-center p-5">
                             <label class="my-auto mr-2" for="queryUrl">Url:</label>
-                            <input class="w-50 form-control" id="queryUrl" list="datasets">
-                            <datalist id="datasets">
-                                <option value="data/demo.json">data/demo.json</option>
-                                <option value="data/demo2_ethiopia.json">data/demo2_ethiopia.json</option>
-                                <option value="data/visualization_pipeline_test.json">data/visualization_pipeline_test.json</option>
-                            </datalist>
-                            <button type="button" class="btn btn-primary ml-2" id="queryBtn">Submit</button>
+                            <select class="w-50 form-control" id="queryUrl"></select>
+                            <button type="button" class="btn btn-secondary ml-2" id="refreshBtn">Refresh</button>
+                            <button type="button" class="btn btn-primary ml-2" id="queryBtn">Load File</button>
                         </div>
                     </div>
                 </div>

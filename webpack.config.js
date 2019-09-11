@@ -37,5 +37,7 @@ module.exports = {
   devtool: 'inline-source-map',
   devServer: {
     contentBase: './dist'
-  }
+  },
+  target: 'node',
+  node: {fs: 'empty'}
 };

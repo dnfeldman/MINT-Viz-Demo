@@ -8,6 +8,7 @@
     "start": "webpack-dev-server --open",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "proxy": "http://localhost:8081",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/BenChenBen/Visualization.git"
@@ -28,7 +29,8 @@
     "jquery": "^3.4.1",
     "jquery-ui": "^1.12.1",
     "live-server": "^1.2.1",
-    "popper.js": "^1.15.0"
+    "popper.js": "^1.15.0",
+    "serve": "^11.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",

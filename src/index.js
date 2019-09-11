@@ -8,7 +8,34 @@ import * as queryView from './views/queryView';
 import * as tableView from './views/tableView';
 import * as chartView from './views/chartView';
 // import * as utility from './views/utility';
- 
+
+
+const listFiles = () => {
+    const dataUrl = 'http://127.0.0.1:8081';
+    fetch(dataUrl)
+        .then(function(response) {
+            return response.text();
+        }).then( data => {
+
+        const dummyEl = document.createElement("html");
+        dummyEl.innerHTML = data;
+        const fileUrls = dummyEl.querySelectorAll("ul a");
+        const selectEl = document.getElementById("queryUrl");
+
+        while (selectEl.hasChildNodes()) {
+            selectEl.removeChild(selectEl.firstChild);
+        }
+
+        fileUrls.forEach(url => {
+            const optionEl = document.createElement("OPTION");
+            optionEl.value = dataUrl + "/" + url.title;
+            optionEl.textContent = url.title;
+            selectEl.appendChild(optionEl)
+        });
+    });
+};
+listFiles();
+
 
 const state = {};
 
@@ -87,6 +114,10 @@ $('input[type=radio][name=pageOptions]').change(e => {
 
 $('#queryBtn').click(e => {
     controlQuery();
+});
+
+$('#refreshBtn').click(e => {
+    listFiles();
 });
 
 //Show Button click event
